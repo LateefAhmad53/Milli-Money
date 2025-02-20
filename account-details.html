@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MilliMoney - Account Details</title>
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px solid #007bff;
+      animation: slideDown 0.6s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    header h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* ACCOUNT DETAILS CARD */
+    .account-card {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .account-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .account-card h2 {
+      margin-bottom: 15px;
+      color: #007bff;
+      text-align: center;
+    }
+    .account-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .account-info .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .account-info .info-item:last-child {
+      border-bottom: none;
+    }
+    .account-info label {
+      font-weight: bold;
+      color: #555;
+    }
+    .account-info span {
+      color: #333;
+    }
+    /* EDIT BUTTON */
+    .edit-btn {
+      display: block;
+      width: 150px;
+      margin: 20px auto;
+      padding: 10px;
+      text-align: center;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .edit-btn:hover {
+      background-color: #0056b3;
+    }
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .account-info .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .account-info .info-item span {
+        margin-top: 5px;
+      }
+      header h1 {
+        font-size: 28px;
+      }
+      header p {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Header -->
+  <header>
+    <h1>Account Details</h1>
+    <p>Manage and review your personal information</p>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="account-card">
+      <h2>Your Profile</h2>
+      <div class="account-info">
+        <div class="info-item">
+          <label>Name:</label>
+          <span>John Doe</span>
+        </div>
+        <div class="info-item">
+          <label>Email:</label>
+          <span>johndoe@example.com</span>
+        </div>
+        <div class="info-item">
+          <label>Phone:</label>
+          <span>08012345678</span>
+        </div>
+        <div class="info-item">
+          <label>Account Number:</label>
+          <span>1234567890</span>
+        </div>
+        <div class="info-item">
+          <label>Available Balance:</label>
+          <span>₦5,000</span>
+        </div>
+        <div class="info-item">
+          <label>Address:</label>
+          <span>1234 Street Name, City, Country</span>
+        </div>
+      </div>
+    </div>
+    <button class="edit-btn" onclick="alert('Edit account details')">Edit Details</button>
+  </div>
+</body>
+</html>

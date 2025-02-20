@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MilliMoney - Quick Loans</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            padding-bottom: 50px; /* Ensures space for the footer */
+            overflow-x: hidden; /* Prevent horizontal scroll during loading */
+        }
+        .hero {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 50px;
+            text-align: left;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .login-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .login-btn:hover {
+            background: #ddd;
+        }
+        .hero-content {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px;
+            text-align: center;
+            flex-wrap: wrap;
+            animation: slideIn 1s ease-in-out;
+        }
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            transition: 0.3s;
+        }
+        .feature:hover {
+            transform: scale(1.05);
+        }
+        .cta {
+            text-align: center;
+            padding: 20px;
+        }
+        .apply-btn, .dashboard-btn {
+            background: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px; /* Add some margin */
+        }
+        .apply-btn:hover, .dashboard-btn:hover {
+            background: #0056b3;
+        }
+
+        .dashboard-btn { /* Style for dashboard button */
+             background: #00a878; /* Green */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            font-size: 0.9em;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            height: 50px;
+            line-height: 25px; /* Adjusts text spacing */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (min-width: 600px) {
+            footer {
+                flex-direction: row;
+                line-height: 50px;
+            }
+        }
+        /* Loading Styles */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999; /* Ensure it's on top */
+        }
+
+        .loader-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .loader-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #007bff; /* Blue */
+            border-top-color: transparent;
+            animation: rotate 1s linear infinite;
+        }
+
+        .loader-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: #007bff;
+        }
+        .progress-bar {
+          width: 80%;
+          height: 10px;
+          background-color: #e0e0e0;
+          border-radius: 5px;
+          margin-top: 10px;
+          overflow: hidden; /* Hide overflow of the progress */
+        }
+        .progress {
+          height: 100%;
+          width: 0%; /* Start at 0% */
+          background-color: #007bff; /* Blue */
+          border-radius: 5px;
+          animation: progress-animation 3s linear forwards; /* 3-second animation */
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes progress-animation {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .marketer-images {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .marketer-images img {
+            width: 250px; /* Adjust as needed */
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover; /* Maintain aspect ratio and cover container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .marketer-images img {
+                width: 200px; /* Adjust for smaller screens */
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading-overlay">
+        <div class="loader-container">
+            <div class="loader-circle"></div>
+            <div class="loader-text">MilliMoney</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="logo">MilliMoney</div>
+        <button class="login-btn" onclick="window.location.href='millilogin.html'">Login</button>
+
+        <div class="hero-content">
+            <h2>Quick Loans for Your Financial Needs</h2>
+            <p>Get instant loans up to ₦500,000 with flexible repayment terms. No collateral required.</p>
+            <a href="loanapp.html"><button class="apply-btn">Apply Now →</button></a>
+            <button class="dashboard-btn" onclick="window.location.href='dashboard.html'">Dashboard</button>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <h3>🔒 Safe & Secure</h3>
+            <p>Your data is protected with bank-grade security measures.</p>
+        </div>
+        <div class="feature">
+            <h3>⏳ Quick Approval</h3>
+            <p>Get your loan approved in minutes, not days.</p>
+        </div>
+        <div class="feature">
+            <h3>📅 Flexible Terms</h3>
+            <p>Choose between 7, 14, or 30-day repayment terms.</p>
+        </div>
+    </div>
+
+    <div class="cta">
+        <h2>Ready to get started?</h2>
+        <p>Join thousands of Nigerians who trust MilliMoney for their financial needs.</p>
+        <a href="loanapp.html"><button class="apply-btn">Apply Now →</button></a>
+    </div>
+
+    <div class="marketer-images">
+        <img src="https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Marketer 1">
+        <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Marketer 2">
+        <img src="https://images.pexels.com/photos/5212324/pexels-photo-5212324.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Bank Image">
+        <img src="https://images.pexels.com/photos/810967/pexels-photo-810967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Bank Image2">
+
+        </div>
+        <div>
+            
+          
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .hero {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .content {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: auto;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .image-gallery img {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .image-gallery img:hover {
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+    </style>
+</head>
+<body>
+    <section id="About">
+        <div class="hero">
+            <h1>About MilliMoney</h1>
+            <p>Your trusted financial partner for quick and reliable loans.</p>
+        </div>
+    
+        <div class="content">
+            <h2>Who We Are</h2>
+            <p>MilliMoney is a leading financial platform providing easy access to loans with flexible repayment terms. Our mission is to empower individuals and businesses with fast, secure, and transparent financial solutions.</p>
+        </div>
+    
+        <div class="image-gallery">
+            <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg" alt="Financial experts discussing strategy">
+            <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg" alt="A professional banker handling transactions">
+            <img src="https://images.pexels.com/photos/3184423/pexels-photo-3184423.jpeg" alt="Marketing team planning business growth">
+            <img src="https://images.pexels.com/photos/4386366/pexels-photo-4386366.jpeg" alt="Person receiving money in a financial transaction">
+            <img src="https://images.pexels.com/photos/4386372/pexels-photo-4386372.jpeg" alt="Money being handed over in a financial exchange">
+        </div>
+    
+        <div class="content">
+            <h2>Our Values</h2>
+            <p>At MilliMoney, we stand for trust, efficiency, and financial empowerment. Our commitment to innovation ensures that our users get the best loan services with seamless digital experiences.</p>
+            <p><strong>Powered by iColumbus Enterprise</strong></p>
+        </div>
+    </section>
+
+   
+ 
+            
+        </div>
+
+    <footer>
+        <p>&copy; 2025 MilliMoney. All rights reserved. | Powered by iColumbus Enterprise</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+            }, 3000); // Hide after 3 seconds
+        });
+    </script>
+
+</body>
+</html>

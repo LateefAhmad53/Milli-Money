@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MilliMoney - Register</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center; /* Horizontally center */
+      align-items: center; /* Vertically center */
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .logo-container { /* Container for logo and text */
+      text-align: center;
+      margin-bottom: 30px;
+      display: flex; /* Use flexbox for alignment */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+    }
+    .logo-container h1 {
+      color: #007bff; /* Blue "MilliMoney" text */
+      margin-left: 10px; /* Space between logo and text */
+    }
+
+    .tab-buttons {
+      display: flex;
+      justify-content: space-around; /* Distribute space evenly */
+      margin-bottom: 20px;
+      padding: 0 10px; /* Add some padding to the container */
+    }
+    .tab-buttons button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #eee; /* Light gray */
+      color: #333; /* Dark gray */
+      cursor: pointer;
+      border-radius: 4px 4px 0 0; /* Rounded top corners */
+      margin: 0 10px; /* Add margin between buttons */
+      flex: 1; /* Make buttons take equal width */
+    }
+    .tab-buttons button.active {
+      background-color: #007bff; /* Blue */
+      color: white;
+    }
+    .input-group {
+      margin-bottom: 15px; /* Slightly less margin */
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #666; /* Gray label color */
+    }
+    .input-group input {
+      width: calc(100% - 12px);
+      padding: 10px;
+      border: 1px solid #ccc; /* Light gray border */
+      border-radius: 4px;
+    }
+    .create-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease; /* Smooth transition */
+    }
+    .create-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Animations */
+    .login-container {
+      animation: fadeInUp 0.8s ease; /* Fade-in animation */
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 450px) {
+      .login-container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+    /* ... (Other CSS styles remain the same) ... */
+    #video {
+      width: 320px;
+      height: 240px;
+      margin-bottom: 10px;
+    }
+    #capture {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo-container">
+      <img src="your-logo.png" alt="MilliMoney Logo">
+      <h1>MilliMoney</h1>
+    </div>
+
+    <div class="tab-buttons">
+      <button onclick="window.location.href='millilogin.html'">Login</button>
+      <button class="active">Register</button>
+    </div>
+
+    <div class="input-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username">
+    </div>
+    <div class="input-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password">
+    </div>
+    <div class="input-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" placeholder="Enter your full name">
+    </div>
+    <div class="input-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+    </div>
+    <div class="input-group">
+      <label for="bvn">BVN</label>
+      <input type="text" id="bvn" name="bvn" placeholder="Enter your BVN">
+    </div>
+
+    <div id="face-capture">
+      <label for="face-capture">Capture Your Face</label>
+      <video id="video" autoplay playsinline></video>
+      <button id="capture">Capture Photo</button>
+      <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+
+    <button class="create-btn">Create Account</button>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureButton = document.getElementById('capture');
+
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }) // Use facingMode for mobile
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(error => {
+        console.error('Error accessing camera:', error);
+      });
+
+    captureButton.addEventListener('click', () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+
+      const dataUrl = canvas.toDataURL('image/png');
+      // You can now use the dataUrl (e.g., send it to the server)
+      console.log('Captured image:', dataUrl);
+    });
+  </script>
+</body>
+</html>

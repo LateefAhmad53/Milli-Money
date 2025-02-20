@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Virtual Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .hidden {
+            display: none;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .account-card {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="request-form">
+        <h1>Request Your Virtual Account</h1>
+        <form onsubmit="generateAccount(event)">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <select id="currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="NGN">NGN</option>
+            </select>
+            <button type="submit">Generate Account</button>
+        </form>
+    </div>
+
+    <div class="container hidden" id="account-details">
+        <h2>Account Successfully Created!</h2>
+        <div class="account-card">
+            <p><strong>Name:</strong> <span id="acc-name"></span></p>
+            <p><strong>Email:</strong> <span id="acc-email"></span></p>
+            <p><strong>Currency:</strong> <span id="acc-currency"></span></p>
+            <p><strong>Account Number:</strong> <span id="acc-number"></span></p>
+            <div id="additional-details" class="hidden">
+                <p><strong>Routing Number:</strong> <span id="acc-routing"></span></p>
+                <p><strong>IBAN:</strong> <span id="acc-iban"></span></p>
+                <p><strong>SWIFT Code:</strong> <span id="acc-swift"></span></p>
+            </div>
+        </div>
+        <button onclick="goBack()">Back to Request Page</button>
+    </div>
+
+    <script>
+        function generateAccount(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const currency = document.getElementById("currency").value;
+            const accountNumber = Math.floor(1000000000 + Math.random() * 9000000000);
+            
+            document.getElementById("acc-name").textContent = name;
+            document.getElementById("acc-email").textContent = email;
+            document.getElementById("acc-currency").textContent = currency;
+            document.getElementById("acc-number").textContent = accountNumber;
+
+            if (currency !== "NGN") {
+                const routingNumber = Math.floor(100000000 + Math.random() * 900000000);
+                const iban = "IBAN" + Math.floor(100000000000 + Math.random() * 900000000000);
+                const swiftCode = "SWIFT" + Math.floor(1000 + Math.random() * 9000);
+
+                document.getElementById("acc-routing").textContent = routingNumber;
+                document.getElementById("acc-iban").textContent = iban;
+                document.getElementById("acc-swift").textContent = swiftCode;
+
+                document.getElementById("additional-details").classList.remove("hidden");
+            } else {
+                document.getElementById("additional-details").classList.add("hidden");
+            }
+
+            document.getElementById("request-form").classList.add("hidden");
+            document.getElementById("account-details").classList.remove("hidden");
+        }
+
+        function goBack() {
+            document.getElementById("request-form").classList.remove("hidden");
+            document.getElementById("account-details").classList.add("hidden");
+        }
+    </script>
+</body>
+</html>

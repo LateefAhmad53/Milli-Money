@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MilliMoney Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* RESET */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* HEADER */
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: slideDown 0.5s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      animation: fadeIn 1s ease;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    /* Account Summary Section */
+    .account-summary {
+      padding: 20px;
+      background-color: #e9ecef;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.8s ease;
+    }
+    .account-summary h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .account-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .account-detail {
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+      margin: 5px 0;
+    }
+    .account-detail span {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .account-detail .copy-btn, .account-detail .toggle-btn {
+      cursor: pointer;
+      margin-left: 5px;
+      color: #007bff;
+    }
+    /* Card & Account Options */
+    .card-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .card-options button {
+      flex: 1;
+      min-width: 150px;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .card-options button:hover {
+      background-color: #0056b3;
+    }
+    /* Dashboard Actions */
+    .dashboard-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .dashboard-actions a {
+      flex: 1;
+      min-width: 150px;
+      text-align: center;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    .dashboard-actions a:hover {
+      background-color: #218838;
+    }
+    /* Transactions Section */
+    .transactions {
+      margin-bottom: 20px;
+      animation: fadeIn 0.8s ease;
+    }
+    .transactions h3 {
+      margin-bottom: 10px;
+      text-align: center;
+      color: #007bff;
+    }
+    .transactions table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .transactions th, .transactions td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .transactions th {
+      background-color: #007bff;
+      color: white;
+    }
+    /* Fund Transfer Form */
+    .fund-transfer {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      animation: fadeIn 0.8s ease;
+    }
+    .fund-transfer h3 {
+      margin-bottom: 15px;
+      text-align: center;
+      color: #007bff;
+    }
+    .fund-transfer form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .fund-transfer form input, .fund-transfer form button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .fund-transfer form input {
+      flex: 1;
+      min-width: 200px;
+    }
+    .fund-transfer form button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .fund-transfer form button:hover {
+      background-color: #0056b3;
+    }
+    /* Bottom Fixed Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 60px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .bottom-nav a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #999;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      padding: 10px 0;
+    }
+    .bottom-nav a.active, .bottom-nav a:hover {
+      color: #007bff;
+    }
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .account-details {
+        flex-direction: column;
+      }
+      .dashboard-actions a, .card-options button {
+        min-width: 120px;
+      }
+      nav {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 480px) {
+      header {
+        padding: 10px;
+      }
+      .header-title {
+        font-size: 20px;
+      }
+      nav a {
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <div class="header-content">
+      <div class="header-title">MilliMoney Dashboard</div>
+      <nav>
+        <a href="loan.html">Dashboard</a>
+        <a href="account.html">Account</a>
+        <a href="settings.html">Settings</a>
+        <a href="logout.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Account Summary Section -->
+    <div class="account-summary">
+      <h2>Welcome, Iwuh Chinedu!</h2>
+      <div class="account-details">
+        <div class="account-detail">
+          <p>Account No.:
+            <span id="acct-num" data-real="1234567890">**********</span>
+            <i class="fas fa-eye toggle-btn" id="toggleAcct"></i>
+            <i class="fas fa-copy copy-btn" id="copyAcct"></i>
+          </p>
+        </div>
+        <div class="account-detail">
+          <p>Available Balance: ₦<span id="balance">5000</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card & Account Options Section -->
+    <div class="card-options">
+      <button onclick="window.location.href='virtualaccount.html'">Request Virtual Account</button>
+      <button onclick="window.location.href='virtualcard.html'">Request Virtual Card</button>
+
+      <button onclick="window.location.href='physicalcard.html'">Request physical Card</button>
+
+    </div>
+
+    <!-- Dashboard Actions Section -->
+    <div class="dashboard-actions">
+      <a href="account-details.html">Account Details</a>
+      <a href="loanapp.html">Request Loan</a>
+      <a href="#fund-transfer">Transfer Funds</a>
+      <a href="loanhistory.html">Transaction History</a>
+    </div>
+
+    <!-- Transactions Section -->
+    <div class="transactions">
+      <h3>Recent Transactions</h3>
+      <table id="transaction-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Amount (₦)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2025-02-18</td>
+            <td>Payment Received</td>
+            <td>+200</td>
+          </tr>
+          <tr>
+            <td>2025-02-17</td>
+            <td>Bill Payment</td>
+            <td>-150</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Fund Transfer Form Section -->
+    <div class="fund-transfer" id="fund-transfer">
+      <h3>Transfer Funds</h3>
+      <form id="transfer-form">
+        <input type="text" id="recipient" placeholder="Recipient Account Number" required>
+        <input type="number" id="amount" placeholder="Amount (₦)" required>
+        <button type="submit">Send</button>
+      </form>
+      <div class="message" id="transfer-message">Transfer Successful!</div>
+    </div>
+  </div>
+
+  <!-- Bottom Fixed Navigation -->
+  <div class="bottom-nav">
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="account.html">Account</a>
+    <a href="loanapp.html">Loan</a>
+    <a href="repayment.html">Repayment</a>
+  </div>
+
+  <script>
+    // Toggle account number visibility
+    const toggleBtn = document.getElementById('toggleAcct');
+    const acctNumSpan = document.getElementById('acct-num');
+    let acctVisible = false;
+    toggleBtn.addEventListener('click', () => {
+      acctVisible = !acctVisible;
+      if (acctVisible) {
+        acctNumSpan.innerText = acctNumSpan.getAttribute('data-real');
+        toggleBtn.classList.remove('fa-eye');
+        toggleBtn.classList.add('fa-eye-slash');
+      } else {
+        acctNumSpan.innerText = '**********';
+        toggleBtn.classList.remove('fa-eye-slash');
+        toggleBtn.classList.add('fa-eye');
+      }
+    });
+
+    // Copy account number to clipboard
+    const copyBtn = document.getElementById('copyAcct');
+    copyBtn.addEventListener('click', () => {
+      const acctNumber = acctNumSpan.getAttribute('data-real');
+      navigator.clipboard.writeText(acctNumber).then(() => {
+        alert('Account number copied to clipboard!');
+      });
+    });
+
+    // Handle fund transfers
+    document.getElementById('transfer-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const recipient = document.getElementById('recipient').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      let balance = parseFloat(document.getElementById('balance').innerText);
+
+      if(amount > balance) {
+        alert("Insufficient balance!");
+        return;
+      }
+
+      balance -= amount;
+      document.getElementById('balance').innerText = balance.toFixed(2);
+
+      const table = document.getElementById('transaction-table').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow(0);
+      const dateCell = newRow.insertCell(0);
+      const descCell = newRow.insertCell(1);
+      const amountCell = newRow.insertCell(2);
+      const today = new Date().toISOString().slice(0, 10);
+      dateCell.innerText = today;
+      descCell.innerText = "Transfer to " + recipient;
+      amountCell.innerText = "-" + amount.toFixed(2);
+
+      const messageDiv = document.getElementById('transfer-message');
+      messageDiv.style.display = 'block';
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 3000);
+
+      document.getElementById('transfer-form').reset();
+    });
+
+    // Functions for card and account options
+    function requestVirtualAccount() {
+      alert("Virtual account request submitted!");
+    }
+    function requestVirtualCard() {
+      alert("Virtual card request submitted!");
+    }
+    function requestPhysicalCard() {
+      alert("Physical card request submitted!");
+    }
+  </script>
+</body>
+</html>

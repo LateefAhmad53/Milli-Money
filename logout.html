@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MilliMoney - Logout</title>
+  <style>
+    /* Reset and basic styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+    .logout-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .logout-container h2 {
+      margin-bottom: 20px;
+    }
+    .logout-container p {
+      margin-bottom: 20px;
+    }
+    .logout-container button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .logout-container button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="logout-container">
+    <h2>Logging Out...</h2>
+    <p>You are being logged out. Please wait.</p>
+    <button id="logoutBtn">Logout Now</button>
+  </div>
+  <script>
+    // Example logout functionality: clear session data and redirect to sign in page.
+    function logout() {
+      // Clear session storage and local storage (if used for authentication tokens)
+      sessionStorage.clear();
+      localStorage.clear();
+      // Redirect to sign in page (replace "login.html" with your actual sign in page)
+      window.location.href = "millilogin.html";
+    }
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    // Optionally, automatically logout after a brief delay:
+    setTimeout(logout, 3000);
+  </script>
+</body>
+</html>

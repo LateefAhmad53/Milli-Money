@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MilliMoney - Loan Application</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h2 {
+      color: #007bff;
+      text-align: center;
+    }
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #666;
+    }
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    @media (max-width: 450px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Loan Application</h2>
+    <!-- Step 1: Loan Details -->
+    <div class="step active" id="step1">
+      <div class="input-group">
+        <label for="loan-amount">Loan Amount</label>
+        <input
+          type="number"
+          id="loan-amount"
+          name="loan-amount"
+          placeholder="Enter desired loan amount"
+        />
+      </div>
+      <div class="input-group">
+        <label for="loan-duration">Loan Duration</label>
+        <select id="loan-duration" name="loan-duration">
+          <option value="">Select Duration</option>
+          <option value="two-weeks">Two Weeks</option>
+          <option value="one-month">One Month</option>
+          <option value="two-months">Two Months</option>
+        </select>
+      </div>
+      <div class="button-group">
+        <button class="btn" onclick="nextStep(1)">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Employment Details -->
+    <div class="step" id="step2">
+      <div class="input-group">
+        <label for="employment-status">Employment Status</label>
+        <select id="employment-status" name="employment-status">
+          <option value="">Select Occupation</option>
+          <option value="employer">Employer</option>
+          <option value="employed">Employed</option>
+          <option value="self-employed">Self Employed</option>
+          <option value="unemployed">Unemployed</option>
+          <option value="freelancer">Freelancer</option>
+          <option value="student">Student</option>
+          <option value="business-man">Business Man</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="employer-name">Employer/Business Name</label>
+        <input
+          type="text"
+          id="employer-name"
+          name="employer-name"
+          placeholder="Enter employer or business name"
+        />
+      </div>
+      <div class="input-group">
+        <label for="monthly-income">Monthly Income</label>
+        <input
+          type="number"
+          id="monthly-income"
+          name="monthly-income"
+          placeholder="Enter your monthly income"
+        />
+      </div>
+      <div class="button-group">
+        <button class="btn" onclick="prevStep(2)">Previous</button>
+        <button class="btn" onclick="nextStep(2)">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Loan Purpose -->
+    <div class="step" id="step3">
+      <div class="input-group">
+        <label for="loan-purpose">Loan Purpose</label>
+        <select id="loan-purpose" name="loan-purpose">
+          <option value="">Select Loan Purpose</option>
+          <option value="Education">Education</option>
+          <option value="Medical">Medical</option>
+          <option value="Rent">Rent</option>
+          <option value="Travel">Travel</option>
+          <option value="Business">Business</option>
+          <option value="Goods">Goods</option>
+          <option value="Events">Events</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label for="additional-info">Additional Information</label>
+        <input
+          type="text"
+          id="additional-info"
+          name="additional-info"
+          placeholder="Any additional info"
+        />
+      </div>
+      <div class="button-group">
+        <button class="btn" onclick="prevStep(3)">Previous</button>
+        <button class="btn" onclick="nextStep(3)">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Review & Submit -->
+    <div class="step" id="step4">
+      <h3>Review Your Application</h3>
+      <div id="review"></div>
+      <div class="button-group">
+        <button class="btn" onclick="prevStep(4)">Previous</button>
+        <button class="btn" onclick="submitApplication()">Submit</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function showStep(step) {
+      const steps = document.getElementsByClassName('step');
+      for (let i = 0; i < steps.length; i++) {
+        steps[i].classList.remove('active');
+      }
+      document.getElementById('step' + step).classList.add('active');
+    }
+
+    function nextStep(step) {
+      currentStep = step + 1;
+      showStep(currentStep);
+      if (currentStep === 4) {
+        populateReview();
+      }
+    }
+
+    function prevStep(step) {
+      currentStep = step - 1;
+      showStep(currentStep);
+    }
+
+    function populateReview() {
+      const reviewDiv = document.getElementById('review');
+      reviewDiv.innerHTML = `
+        <p><strong>Loan Amount:</strong> ${document.getElementById('loan-amount').value}</p>
+        <p><strong>Loan Duration:</strong> ${
+          document.getElementById('loan-duration').value
+        }</p>
+        <p><strong>Employment Status:</strong> ${
+          document.getElementById('employment-status').value
+        }</p>
+        <p><strong>Employer/Business Name:</strong> ${
+          document.getElementById('employer-name').value
+        }</p>
+        <p><strong>Monthly Income:</strong> ${
+          document.getElementById('monthly-income').value
+        }</p>
+        <p><strong>Loan Purpose:</strong> ${
+          document.getElementById('loan-purpose').value
+        }</p>
+        <p><strong>Additional Information:</strong> ${
+          document.getElementById('additional-info').value
+        }</p>
+      `;
+    }
+
+    function submitApplication() {
+      alert('Application Submitted!');
+      // Add form submission logic here if needed.
+    }
+  </script>
+</body>
+</html>

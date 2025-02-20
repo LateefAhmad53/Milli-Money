@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MilliMoney - Loan History</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* RESET */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 0 20px 80px; /* extra bottom padding for nav */
+    }
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: slideDown 0.6s ease-out;
+    }
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* LOAN HISTORY SECTION */
+    .loan-history {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .loan-history h2 {
+      color: #007bff;
+      margin-bottom: 15px;
+      font-size: 24px;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead {
+      background-color: #007bff;
+      color: #fff;
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      text-align: left;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    /* BOTTOM FIXED NAVIGATION */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 60px;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    }
+    .bottom-nav a {
+      flex: 1;
+      text-align: center;
+      text-decoration: none;
+      color: #999;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      padding: 10px 0;
+    }
+    .bottom-nav a.active {
+      color: #007bff;
+    }
+    .bottom-nav a:hover {
+      color: #007bff;
+    }
+    /* RESPONSIVE ADJUSTMENTS */
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 24px;
+      }
+      .header p {
+        font-size: 14px;
+      }
+      th, td {
+        padding: 10px 8px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header with Gradient Background -->
+    <div class="header">
+      <h1>MilliMoney</h1>
+      <p>Your Loan History Overview</p>
+    </div>
+    
+    <!-- Loan History Section -->
+    <div class="loan-history">
+      <h2>Loan History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Loan ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Interest Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#L001</td>
+            <td>₦10,000</td>
+            <td>Approved</td>
+            <td>Feb 17, 2025</td>
+            <td>10%</td>
+          </tr>
+          <tr>
+            <td>#L002</td>
+            <td>₦20,000</td>
+            <td>Pending</td>
+            <td>Mar 10, 2025</td>
+            <td>12%</td>
+          </tr>
+          <tr>
+            <td>#L003</td>
+            <td>₦15,000</td>
+            <td>Rejected</td>
+            <td>N/A</td>
+            <td>--</td>
+          </tr>
+          <!-- More rows can be added dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Bottom Fixed Navigation -->
+  <div class="bottom-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="loan.html">My Loan</a>
+    <a href="account.html">Account</a>
+    <a href="repayment.html">Repayment</a>
+    <a href="loan-history.html" class="active">History</a>
+  </div>
+</body>
+</html>

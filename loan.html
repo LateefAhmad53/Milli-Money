@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MilliMoney - My Loan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #007bff;
+      border-radius: 8px;
+      color: #fff;
+      margin-bottom: 20px;
+      animation: slideDown 0.6s ease-out;
+    }
+    .header .logo h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    .header .logo p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .header .user-info {
+      text-align: right;
+    }
+    .header .user-info strong {
+      display: block;
+      font-size: 16px;
+    }
+    .header .user-info a {
+      color: #fff;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* Cards */
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* Active Loan Card with Gradient */
+    .active-loan {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      padding: 25px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease;
+    }
+    .active-loan h2 {
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+    .loan-details {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .loan-details .detail-column {
+      flex: 1;
+      min-width: 200px;
+      margin-bottom: 10px;
+    }
+    .loan-details .detail-column p {
+      margin: 4px 0;
+      font-size: 14px;
+    }
+    .loan-details .detail-column h3 {
+      margin: 5px 0;
+      font-size: 26px;
+      font-weight: bold;
+    }
+    /* Loan History Table */
+    .loan-history h2 {
+      margin-bottom: 15px;
+      font-size: 22px;
+      color: #007bff;
+    }
+    .loan-history table {
+      width: 100%;
+      border-collapse: collapse;
+      animation: fadeIn 1s ease;
+    }
+    .loan-history th, .loan-history td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      text-align: left;
+    }
+    .loan-history th {
+      background-color: #007bff;
+      color: #fff;
+    }
+    /* Message Icon */
+    .message-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2em;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .header .user-info {
+        margin-top: 10px;
+      }
+      .loan-details {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <h1>MilliMoney</h1>
+        <p>Manage your loans & applications</p>
+      </div>
+      <div class="user-info">
+        <strong>Welcome back, Iwuh Chinedu</strong>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+
+    <!-- Active Loan Card -->
+    <div class="active-loan card">
+      <h2>Active Loan</h2>
+      <div class="loan-details">
+        <div class="detail-column">
+          <p>Amount</p>
+          <h3>₦10,000</h3>
+          <p>Due Date</p>
+          <p>Feb 17, 2025</p>
+        </div>
+        <div class="detail-column">
+          <p>Status</p>
+          <h3>Approved</h3>
+          <p>Interest Rate</p>
+          <p>10%</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loan History Section -->
+    <div class="card loan-history">
+      <h2>Loan History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Interest Rate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>₦10,000</td>
+            <td>Approved</td>
+            <td>Feb 17, 2025</td>
+            <td>10%</td>
+          </tr>
+          <!-- Additional rows can be added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Floating Message Icon -->
+  <div class="message-icon">
+    <i class="fas fa-envelope"></i>
+  </div>
+</body>
+</html>

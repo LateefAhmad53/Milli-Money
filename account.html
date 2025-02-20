@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MilliMoney - Account</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* RESET */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    /* Optional Top Header */
+    .top-header {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      font-size: 20px;
+      animation: slideDown 0.5s ease-out;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding-bottom: 70px; /* Leave space for bottom nav */
+      animation: fadeIn 0.8s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    /* TOP BUTTONS (Coupons / Loan History) */
+    .top-buttons {
+      display: flex;
+      justify-content: space-around;
+      background-color: #fff;
+      margin: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .top-button {
+      flex: 1;
+      text-align: center;
+      padding: 20px 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .top-button:hover {
+      background-color: #f0f0f0;
+    }
+    .top-button h4 {
+      margin-bottom: 8px;
+      color: #007bff;
+    }
+    .top-button p {
+      font-size: 14px;
+      color: #555;
+    }
+    /* SECTION LISTS (Profile, Bank Account, etc.) */
+    .section {
+      background-color: #fff;
+      margin: 10px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .section-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .section-item:last-child {
+      border-bottom: none;
+    }
+    .section-item:hover {
+      background-color: #f9f9f9;
+    }
+    .section-item span {
+      font-size: 16px;
+      color: #333;
+    }
+    .section-item i {
+      color: #ccc;
+      font-size: 16px;
+    }
+    /* Modal Overlay for My Profile */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; 
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+    .modal {
+      background: #fff;
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;
+      animation: slideUp 0.5s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #aaa;
+      transition: color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #333;
+    }
+    .account-details {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    .account-details label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    .account-details div {
+      background-color: #f9f9f9;
+      padding: 8px;
+      border-radius: 4px;
+    }
+    /* BOTTOM FIXED NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+    }
+    .nav-button {
+      flex: 1;
+      text-align: center;
+      color: #999;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.3s ease;
+    }
+    .nav-button:hover {
+      color: #007bff;
+    }
+    .nav-button.active {
+      color: #007bff;
+    }
+    /* MEDIA QUERIES */
+    @media (min-width: 481px) {
+      .container {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <div class="top-header">My Account</div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <div class="container">
+    <!-- TOP BUTTONS -->
+    <div class="top-buttons">
+      <div class="top-button" onclick="alert('Coupons clicked!')">
+        <h4>Coupons</h4>
+        <p>View available coupons</p>
+      </div>
+      <!-- Loan History button linking to loanhistory.html -->
+      <div class="top-button" onclick="window.location.href='loanhistory.html'">
+        <h4>Loan History</h4>
+        <p>Check your past loans</p>
+      </div>
+    </div>
+
+    <!-- FIRST SECTION -->
+    <div class="section">
+      <!-- Toggle to open modal for My Profile details -->
+      <div class="section-item" onclick="toggleProfile()">
+        <span>My Profile</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="section-item" onclick="window.location.href='account-details.html'">
+  <span>Bank Account</span>
+  <i class="fas fa-chevron-right"></i>
+</div>
+
+      <div class="section-item" onclick="alert('Other Information')">
+        <span>Other Information</span>
+        <i class="fas fa-chevron-right"></i>
+      </div>
+    </div>
+
+    <!-- SECOND SECTION -->
+    <div class="section">
+      <!-- Settings page button -->
+      <div class="section-item" onclick="window.location.href='settings.html'">
+        <span>Settings</span>
+        <i class="fas fa-chevron-right"></i>
+      </div>
+      <div class="section-item" onclick="alert('Messages')">
+        <span>Messages</span>
+        <i class="fas fa-chevron-right"></i>
+      </div>
+      <div class="section-item" onclick="alert('Help')">
+        <span>Help</span>
+        <i class="fas fa-chevron-right"></i>
+      </div>
+      <div class="section-item" onclick="window.location.href='about.html'">
+    <span>About</span>
+    <i class="fas fa-chevron-right"></i>
+</div>
+
+      <div class="section-item" onclick="alert('Contact Us')">
+        <span>Contact Us</span>
+        <i class="fas fa-chevron-right"></i>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Back to Dashboard Button Section -->
+<div class="back-to-dashboard">
+  <a href="dashboard.html">Back to Dashboard</a>
+</div>
+
+<style>
+  .back-to-dashboard {
+    text-align: center;
+    margin: 20px 0 80px; /* Extra bottom margin (80px) to avoid overlap with fixed nav */
+    animation: fadeIn 0.8s ease;
+  }
+  .back-to-dashboard a {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #007bff, #00aaff);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .back-to-dashboard a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+</style>
+
+
+  <!-- Modal Overlay for My Profile -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h3 style="text-align:center; color:#007bff;">My Profile Details</h3>
+      <div class="account-details">
+        <div><label>Name:</label> John Doe</div>
+        <div><label>Email:</label> johndoe@example.com</div>
+        <div><label>Phone:</label> 08012345678</div>
+        <div><label>Account Number:</label> 1234567890</div>
+        <div><label>Balance:</label> ₦5,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM FIXED NAVIGATION -->
+  <div class="bottom-nav">
+    <!-- My Loan button linking to loan.html -->
+    <a href="loan.html" class="nav-button">
+      <div>My Loan</div>
+    </a>
+    <a href="repayment.html" class="nav-button">
+      <div>Repayment</div>
+    </a>
+    <a href="account.html" class="nav-button active">
+      <div>Account</div>
+    </a>
+  </div>
+
+  <script>
+    // Function to show the modal
+    function toggleProfile() {
+      document.getElementById('profileModal').style.display = 'block';
+    }
+    // Close button click event
+    document.getElementById('closeModal').addEventListener('click', function() {
+      document.getElementById('profileModal').style.display = 'none';
+    });
+    // Close modal if clicking outside the modal content
+    window.addEventListener('click', function(event) {
+      var modal = document.getElementById('profileModal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

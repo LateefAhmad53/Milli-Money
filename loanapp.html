@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MilliMoney - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .dashboard-container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .user-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+        .user-info {
+            text-align: left;
+        }
+        .user-info strong {
+            display: block;
+            font-size: 1.2em;
+        }
+        .user-info p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .logout {
+            text-align: right;
+        }
+        .logout a {
+            text-decoration: none;
+            color: red;
+            font-weight: bold;
+        }
+        .content-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .loan-status {
+            text-align: center;
+        }
+        .loan-status p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .loan-status button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .loan-details {
+            display: flex;
+            justify-content: space-between;
+        }
+        .message-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .message-icon:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="logo">MilliMoney</div>
+                    <strong>Welcome back, Iwuh Chinedu</strong>
+                    <p>Manage your loans and applications</p>
+                </div>
+                <div class="logout">
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box" id="no-loans">
+            <div class="loan-status">
+                <p>You don't have any active loans</p>
+                <a href="loanprocess.html">
+    <button>Apply for a Loan →</button>
+</a>
+
+            </div>
+        </div>
+
+        <div class="content-box" id="active-loans" style="display: none;">
+            <div class="loan-details">
+                <h2>Manage your loans and applications</h2>
+            </div>
+            <div class="loan-list">
+                <div class="loan-item">
+                    <h3>Loan ID: 12345</h3>
+                    <p>Amount: ₦50,000</p>
+                    <p>Due Date: 2023-12-25</p>
+                    <p class="status">Pending</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="message-icon">
+        <i class="fas fa-envelope"></i>
+    </div>
+
+    <script>
+        const hasActiveLoans = false;
+        document.getElementById('no-loans').style.display = hasActiveLoans ? 'none' : 'block';
+        document.getElementById('active-loans').style.display = hasActiveLoans ? 'block' : 'none';
+
+        document.querySelector('#no-loans button').addEventListener('click', () => {
+            window.location.href = 'loanprocess.html';
+        });
+    </script>
+</body>
+</html>
